@@ -1,17 +1,13 @@
 package com.opendev.repository.impl;
 
-import static java.util.stream.Collectors.toList;
-import static java.util.stream.Collectors.toSet;
-import static java.util.stream.Collectors.groupingBy;
-import static java.util.stream.Collectors.mapping;
-
-import java.util.AbstractMap;
-
-import static java.util.Set.of;
-
 import static com.opendev.repository.impl.ModelRepositoryImpl.dbModels;
 import static com.opendev.repository.impl.OptionalRepositoryImpl.dbOptionals;
+import static java.util.Set.of;
+import static java.util.stream.Collectors.groupingBy;
+import static java.util.stream.Collectors.mapping;
+import static java.util.stream.Collectors.toList;
 
+import java.util.AbstractMap;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -62,7 +58,7 @@ public class CarRepositoryImpl implements CarRepository {
 	public Set<StatsModel> statsModel() {
 		
 		Set<StatsModel> statsModel = new HashSet<>();
-		Stream<Model> models = dbCars.entrySet().stream().map(v -> v.getValue().getModel()).distinct();
+		var models = dbCars.entrySet().stream().map(v -> v.getValue().getModel()).distinct();
 
 		models.forEach(m -> {
 			String name = m.getName();
@@ -79,11 +75,12 @@ public class CarRepositoryImpl implements CarRepository {
 		
 		Set<StatsOptional> statsOptionals = new HashSet<>();
 
-		Map<Optional, List<Car>> optionalGroupByCars = dbCars.entrySet().stream()
-				.map(Entry::getValue).flatMap(car -> car.getOptionals().stream().map(optional -> new AbstractMap.SimpleEntry<>(optional, car)))
+		var optionalGroupByCars = 
+				dbCars.entrySet().stream().map(Entry::getValue).flatMap(car -> car.getOptionals().stream()
+						.map(optional -> new AbstractMap.SimpleEntry<>(optional, car)))
 				.collect(groupingBy(AbstractMap.SimpleEntry::getKey, mapping(AbstractMap.SimpleEntry::getValue, toList())));
 
-		Integer optionalTotalSum = dbCars.entrySet().stream().map(Entry::getValue).map(c -> c.getOptionals().size()).reduce(0, Integer::sum);
+		var optionalTotalSum = dbCars.entrySet().stream().map(Entry::getValue).map(c -> c.getOptionals().size()).reduce(0, Integer::sum);
 
 		optionalGroupByCars.forEach((k, v) -> {
 			double percent = 100 * v.size() / optionalTotalSum;

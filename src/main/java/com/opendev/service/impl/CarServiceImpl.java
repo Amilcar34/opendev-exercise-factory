@@ -53,7 +53,7 @@ public class CarServiceImpl implements CarService {
 	}
 
 	public StatsCar stats() {
-		StatsCar statsCar = new StatsCar();
+		var statsCar = new StatsCar();
 		statsCar.setCount_car(carRepository.count());
 		statsCar.setCars(carRepository.statsModel());
 		statsCar.setOptionals(carRepository.statsOptional());
@@ -62,7 +62,7 @@ public class CarServiceImpl implements CarService {
 
 	private Car saveCar(Car entity, int idModel, Set<Integer> idsOptionals) {
 
-		Model model = modelRepository.getOne(idModel);
+		var model = modelRepository.getOne(idModel);
 		entity.setModel(model);
 		Set<Optional> optionals;
 		optionals = idsOptionals == null || idsOptionals.isEmpty() ? new HashSet<Optional>() : optionalService.getByIds(idsOptionals);
