@@ -53,6 +53,7 @@ public class CarServiceImpl implements CarService {
 	}
 
 	public StatsCar stats() {
+		
 		var statsCar = new StatsCar();
 		statsCar.setCount_car(carRepository.count());
 		statsCar.setCars(carRepository.statsModel());

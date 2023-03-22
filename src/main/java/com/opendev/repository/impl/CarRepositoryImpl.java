@@ -27,7 +27,7 @@ public class CarRepositoryImpl implements CarRepository {
 
 	@Override
 	public Car save(Car entity) {
-		
+
 		int id = dbCars.size() + 1;
 		entity.setId(id);
 		dbCars.put(id, entity);
@@ -56,13 +56,14 @@ public class CarRepositoryImpl implements CarRepository {
 
 	@Override
 	public Set<StatsModel> statsModel() {
-		
+
 		Set<StatsModel> statsModel = new HashSet<>();
 		var models = dbCars.entrySet().stream().map(v -> v.getValue().getModel()).distinct();
 
 		models.forEach(m -> {
 			String name = m.getName();
-			long count = dbCars.entrySet().stream().map(Entry::getValue).map(Car::getModel).filter(f -> f.getId().equals(m.getId())).count();
+			long count = dbCars.entrySet().stream().map(Entry::getValue).map(Car::getModel)
+					.filter(f -> f.getId().equals(m.getId())).count();
 			double percent = 100 * count / dbCars.size();
 			statsModel.add(new StatsModel(name, count, percent));
 		});
@@ -72,15 +73,15 @@ public class CarRepositoryImpl implements CarRepository {
 
 	@Override
 	public Set<StatsOptional> statsOptional() {
-		
+
 		Set<StatsOptional> statsOptionals = new HashSet<>();
 
-		var optionalGroupByCars = 
-				dbCars.entrySet().stream().map(Entry::getValue).flatMap(car -> car.getOptionals().stream()
-						.map(optional -> new AbstractMap.SimpleEntry<>(optional, car)))
+		var optionalGroupByCars = dbCars.entrySet().stream().map(Entry::getValue)
+				.flatMap(car -> car.getOptionals().stream().map(optional -> new AbstractMap.SimpleEntry<>(optional, car)))
 				.collect(groupingBy(AbstractMap.SimpleEntry::getKey, mapping(AbstractMap.SimpleEntry::getValue, toList())));
 
-		var optionalTotalSum = dbCars.entrySet().stream().map(Entry::getValue).map(c -> c.getOptionals().size()).reduce(0, Integer::sum);
+		var optionalTotalSum = dbCars.entrySet().stream().map(Entry::getValue).map(c -> c.getOptionals().size())
+				.reduce(0, Integer::sum);
 
 		optionalGroupByCars.forEach((k, v) -> {
 			double percent = 100 * v.size() / optionalTotalSum;
@@ -94,7 +95,8 @@ public class CarRepositoryImpl implements CarRepository {
 			put(1, new Car(1, dbModels.get(1), of(dbOptionals.get(2), dbOptionals.get(4))));
 			put(2, new Car(2, dbModels.get(1), of(dbOptionals.get(1), dbOptionals.get(4))));
 			put(3, new Car(3, dbModels.get(2), of(dbOptionals.get(2), dbOptionals.get(4))));
-			put(4, new Car(4, dbModels.get(3), of(dbOptionals.get(1), dbOptionals.get(2), dbOptionals.get(3), dbOptionals.get(4))));
+			put(4, new Car(4, dbModels.get(3),
+					of(dbOptionals.get(1), dbOptionals.get(2), dbOptionals.get(3), dbOptionals.get(4))));
 			put(5, new Car(5, dbModels.get(3), of()));
 		}
 	};
