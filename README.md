@@ -15,7 +15,7 @@
 A su vez, a cada variante se le pueden agregar opciones como techo corredizo, aire acondicionado, sistema de frenos ABS, airbag y llantas de aleación. Cada uno de estos opcionales tiene un precio que se suma al básico. 
 En este caso, cada auto vendrá caracterizado por su variante y podrá tener ninguno, uno o más opcionales. Asumiendo los siguientes costos:
 
-Autos
+Autosd
 • Básico sedán 230.000
 • Básico familiar 245.000
 • Básico coupé 270.000
@@ -37,10 +37,34 @@ Opcionales:
  
 ### Ejercicio 4
  Exponer un nuevo metodo “stats” que devuelva un Json con las estadísticas de la cantidad de automóviles y las distintas características:
- ![image](https://user-images.githubusercontent.com/86163213/227006655-1044f9e1-1c02-436b-a6c5-08be5e366673.png)
-
-### Ejercicio 5
- Instrucciones de cómo ejecutar el programa en README de github junto con la documentación.
+ {
+   "count_car":120,
+   "cars":[
+      {
+         "model":"sedan",
+         "count":30,
+         "percent":25
+      },
+      {
+         "model":"coupe",
+         "count":30,
+         "percent":25
+      },
+      {
+         "model":"family",
+         "count":60,
+         "percent":50
+      }
+   ],
+   "optionals":[
+      {
+         "optional":"tc",
+         "count":12,
+         "percent":10
+      },
+      "….."
+   ]
+}
  
 ## Ejecutar
 
