@@ -44,6 +44,7 @@
  
 ### Ejercicio 4
  Exponer un nuevo metodo “stats” que devuelva un Json con las estadísticas de la cantidad de automóviles y las distintas características:
+ 
  <image src="/imagen.png" width="250" height="650" alt="Ejercicio 4">
 
 ## Ejecutar
