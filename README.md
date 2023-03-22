@@ -37,34 +37,7 @@ Opcionales:
  
 ### Ejercicio 4
  Exponer un nuevo metodo “stats” que devuelva un Json con las estadísticas de la cantidad de automóviles y las distintas características:
- {
-   "count_car":120,
-   "cars":[
-      {
-         "model":"sedan",
-         "count":30,
-         "percent":25
-      },
-      {
-         "model":"coupe",
-         "count":30,
-         "percent":25
-      },
-      {
-         "model":"family",
-         "count":60,
-         "percent":50
-      }
-   ],
-   "optionals":[
-      {
-         "optional":"tc",
-         "count":12,
-         "percent":10
-      },
-      "….."
-   ]
-}
+ ![image](https://user-images.githubusercontent.com/86163213/227008041-0b7541d8-55d0-41c8-a1ef-4dfe0d63ee45.png)
  
 ## Ejecutar
 
