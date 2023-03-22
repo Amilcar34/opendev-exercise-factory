@@ -1,15 +1,12 @@
 package com.opendev.entity;
 
 import static java.lang.Double.sum;
+
 import java.util.Set;
 
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 
 @Data
 @AllArgsConstructor

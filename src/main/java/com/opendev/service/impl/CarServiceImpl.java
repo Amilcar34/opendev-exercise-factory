@@ -1,7 +1,7 @@
 package com.opendev.service.impl;
 
-import static java.lang.Double.sum;
 import static java.lang.Boolean.FALSE;
+import static java.lang.Double.sum;
 
 import java.util.HashSet;
 import java.util.Set;
