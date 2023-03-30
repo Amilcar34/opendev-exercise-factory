@@ -1,5 +1,8 @@
 package com.opendev.service.impl.test;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,28 +19,47 @@ import com.opendev.service.impl.CarServiceImpl;
 public class CarServiceImplTest {
 	
 	@Test
-	public void metodoCreateCorrectoFuncionamiento() {
-
-
-		Integer idModel = 01;
-//		Model model = new Model(idModel, "Sedan", 90000.00);
-//		Integer idCar = 26;
-//		Optional optional = new Optional(225, "TC", "Techo Corredizo", 12000.00);
-		Integer id1 = 551, id2 = 990;
-		Set<Integer> idOpcionales = new HashSet<>();
-		//Set<Optional> opcionales = new HashSet<>();
-
-		idOpcionales.add(id1);
-		idOpcionales.add(id2);
-		//opcionales.add(optional);
+	public void correctoFuncionamientoCreate() {
+		Integer id = 1;
+		Model model = new Model(1, "Sedán", 230000.0);
+		Optional opcional = new Optional(2, "AA", "Aire acondicionado", 20000.0);
 		
-		OptionalRepository or = new OptionalRepositoryImpl();
-		or.getOne(id1);
+		Set<Optional> opcionals = new HashSet<Optional>();
+		opcionals.add(opcional);
 		
-	//	Car car = new Car(idCar, model, opcionales);
-		
+		Car car = new Car(id, model, opcionals);
+			
+		Set<Integer> idOptionals = new HashSet<Integer>();
+		idOptionals.add(opcional.getId());		
+		CarService cs = new CarServiceImpl();
+
+		cs.create(model.getId(), idOptionals);
+	
+	}
+
+	@Test
+	public void metodoCreateUpdateYDeleteCorrectoFuncionamiento() {
 		CarService csi = new CarServiceImpl();
-		csi.create(idModel, idOpcionales);
+		Integer idModel = 21;
+		Model model = new Model(idModel, "", 200000.00);
+		
+		Optional opcional = new Optional();
+		Optional opcional2 = new Optional();
+		
+		Integer idOptional1 = opcional.getId();
+		Integer idOptional2 = opcional2.getId();
+		
+		Set<Integer> opcionales = new HashSet<Integer>();
+		opcionales.add(idOptional1);
+		opcionales.add(idOptional2);
+		
+		//Car car = new Car();
+		Integer newId = 550;
+//		car.setId(newId);
+		
+		csi.create(model.getId(), opcionales);
+		csi.update(newId, idModel, opcionales);
+		assertTrue(csi.delete(newId));
 	}
 
 }

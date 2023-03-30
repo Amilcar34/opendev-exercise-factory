@@ -20,13 +20,13 @@ public class CarRepositoryImplTest {
 	public void queFuncioneCorrectamenteElMetodoSave() {
 		CarRepositoryImpl cri = new CarRepositoryImpl();
 
-		Model modelo = new Model(8572, "Sedan", 8000.00);
+		Model modelo = new Model(1, "Sedan", 230000.0);
 
 		Optional opcional = new Optional();
 
 		Set<Optional> opcionales = new HashSet<>();
 		opcionales.add(opcional);
-		Integer id = 30;
+		Integer id = 1;
 		Car auto = new Car(id, modelo, opcionales);
 
 		cri.save(auto);
@@ -47,7 +47,13 @@ public class CarRepositoryImplTest {
 	}
 
 	@Test
+	public void queFuncioneCorrectamenteStatsModel() {
+		//pausa
+
+	}
+	@Test
 	public void queFuncioneCorrectamenteStatsOptional() {
+		//pausa
 
 	}
 
