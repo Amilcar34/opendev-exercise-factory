@@ -1,4 +1,4 @@
-package com.opendev.repository.impl.test;
+package com.opendev.repository.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -34,15 +34,21 @@ public class CarRepositoryImplTest {
 	}
 
 	@Test
-	public void queFuncioneCorrectamenteDeleteById() {
+	public void queSePuedaGuardarUnAutoYDespuesBorrarlo() {
 		CarRepositoryImpl cri = new CarRepositoryImpl();
-
-		Car auto = new Car();
+		// setup
+		Model model = new Model(2, "Familiar", 270000.0);
+		Optional optional1 = new Optional(2, "AA", "Aire acondicionado", 20000.0);
+		Optional optional2 = new Optional(4, "AB", "Airbag", 7000.0);
+		Set<Optional> opcionales = new HashSet<>();
+		opcionales.add(optional1);
+		opcionales.add(optional2);
+		Car auto = new Car(3, model, opcionales);
+		// exercise
 		cri.save(auto);
-		
 		cri.deleteById(auto.getId());
 		boolean resultado = cri.existsById(auto.getId());
-		
+		// verify
 		assertFalse(resultado);
 	}
 

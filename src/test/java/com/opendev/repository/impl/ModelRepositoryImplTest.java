@@ -1,4 +1,4 @@
-package com.opendev.repository.impl.test;
+package com.opendev.repository.impl;
 
 import static org.junit.Assert.assertEquals;
 

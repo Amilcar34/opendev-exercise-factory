@@ -1,4 +1,4 @@
-package com.opendev.service.impl.test;
+package com.opendev.service.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -20,26 +20,28 @@ import com.opendev.service.impl.CarServiceImpl;
 
 public class CarServiceImplTest {
 
-//	public void correctoFuncionamientoCreate() {
-//		Integer id = 1;
-//		Model model = new Model(1, "Sedán", 230000.0);
-//		Optional opcional = new Optional(2, "AA", "Aire acondicionado", 20000.0);
-//
-//		Set<Optional> opcionals = new HashSet<Optional>();
-//		opcionals.add(opcional);
-//
-//		Car car = new Car(id, model, opcionals);
-//
-//		Set<Integer> idOptionals = new HashSet<Integer>();
-//		idOptionals.add(opcional.getId());
-//		CarService cs = new CarServiceImpl();
-//		CarRepository cr = new CarRepositoryImpl();
-//
-//		cr.save(car);
-//		cr.getOne(id);
-//		cs.create(model.getId(), idOptionals);
-//
-//	}
+	public void queSePuedaCrearYBorrarUnAuto() {
+		
+		Integer id = 1;
+		Model model = new Model(1, "Sedán", 230000.0);
+		Optional opcional = new Optional(2, "AA", "Aire acondicionado", 20000.0);
+		Set<Optional> opcionals = new HashSet<Optional>();
+		opcionals.add(opcional);
+
+		Car car = new Car(id, model, opcionals);
+
+		Set<Integer> idOptionals = new HashSet<Integer>();
+		idOptionals.add(opcional.getId());
+		// setup
+		CarService cs = new CarServiceImpl();
+
+		// exercise
+		cs.create(model.getId(), idOptionals);
+		boolean resultadoEsperado = cs.delete(car.getId());
+		// verify
+		assertTrue(resultadoEsperado);
+
+	}
 
 //	@Test
 //	public void metodoCreateUpdateYDeleteCorrectoFuncionamiento() {

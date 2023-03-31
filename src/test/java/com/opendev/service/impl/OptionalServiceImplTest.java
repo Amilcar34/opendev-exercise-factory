@@ -1,4 +1,4 @@
-package com.opendev.service.impl.test;
+package com.opendev.service.impl;
 
 import static org.junit.Assert.assertEquals;
 
@@ -25,5 +25,11 @@ public class OptionalServiceImplTest {
 		Double resultado = os.sumCost(optionals);
 		assertEquals(suma, resultado);
 	}
+	
+	@Test
+	public void metodogetByIds() {
+		
+	}
+	
 
 }
