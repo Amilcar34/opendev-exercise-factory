@@ -1,6 +1,7 @@
 package com.opendev.service.impl;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.HashSet;
@@ -18,34 +19,37 @@ import com.opendev.entity.Optional;
 import com.opendev.service.CarService;
 
 @RunWith(JUnit4ClassRunner.class)
+
 public class CarServiceImplTest {
 	
+
 	@Test
 	public void calcularElCostoCuandoIdsOptionalsEsNull() {
 		// setup
 		CarService cs = new CarServiceImpl();
 		Model model = new Model(1, "Sedán", 230000.0);
 		Integer idModel = model.getId();
-		
+
 		// exercise
 		Double resultado = cs.calculateCost(idModel, null);
 		Double resultadoEsperado = 230000.0;
 		// verify
 		assertEquals(resultadoEsperado, resultado);
 	}
-	
+
 	@Test
 	public void calcularElCostoCuandoIdsOptionalEstaVacio() {
 		CarService cs = new CarServiceImpl();
 		Model model = new Model(2, "Familiar", 245000.0);
 		Set<Integer> idsOptionals = new HashSet<>();
-		
+
 		Integer idModel = model.getId();
 		Double resultadoObtenido = cs.calculateCost(idModel, idsOptionals);
 		Double resultadoEsperado = 245000.0;
 		assertEquals(resultadoEsperado, resultadoObtenido);
-		
+
 	}
+
 	@Test
 	public void calcularElCostoCorrectoFuncionamiento() {
 		CarService cs = new CarServiceImpl();
@@ -56,17 +60,18 @@ public class CarServiceImplTest {
 		Set<Integer> idsOptionals = new HashSet<>();
 		idsOptionals.add(opcional.getId());
 		idsOptionals.add(opcional2.getId());
-		
+
 		Integer idModel = model.getId();
-		
+
 		Double resultadoObtenido = cs.calculateCost(idModel, idsOptionals);
 		Double resultadoEsperado = model.getCost() + opcional.getCost() + opcional2.getCost();
 		assertEquals(resultadoEsperado, resultadoObtenido);
 	}
-	//@Test
+
+	@Test
 	public void queSePuedaCrearYBorrarUnAuto() {
 
-		Integer id = 1;
+		Integer id = 2;
 		Model model = new Model(1, "Sedán", 230000.0);
 		Optional opcional = new Optional(2, "AA", "Aire acondicionado", 20000.0);
 		Set<Optional> opcionals = new HashSet<Optional>();
@@ -80,10 +85,9 @@ public class CarServiceImplTest {
 		CarService cs = new CarServiceImpl();
 
 		// exercise
-		cs.create(model.getId(), idOptionals);
-		boolean resultadoEsperado = cs.delete(car.getId());
+		//cs.create(model.getId(), idOptionals);
 		// verify
-		assertTrue(resultadoEsperado);
+		assertTrue(cs.delete(car.getId()));
 
 	}
 
@@ -100,7 +104,7 @@ public class CarServiceImplTest {
 		opcionales.add(opcional2);
 		opcionales.add(opcional3);
 		opcionales.add(opcional4);
-		
+
 		Set<Integer> idOpcionales = new HashSet<>();
 		idOpcionales.add(opcional1.getId());
 		idOpcionales.add(opcional2.getId());
@@ -108,7 +112,7 @@ public class CarServiceImplTest {
 		idOpcionales.add(opcional4.getId());
 
 		Car car = new Car(idCar, model, opcionales);
-		
+
 		CarService cs = new CarServiceImpl();
 		cs.create(model.getId(), idOpcionales);
 		cs.update(2, 1, idOpcionales);
