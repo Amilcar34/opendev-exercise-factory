@@ -18,6 +18,7 @@
 
 ## Consigna general
   Disponible para su realización en ```documentos/CONSIGNA.docx```.
+  
 
 ## Cambios para su compilación
   Al importar el proyecto, se podían ver varios errores debido a que parecia que faltaban varias cosas. Nunca iba a poder compilarlo ni poder solucionar los problemas manualmente porque no se permite la edición del codigo source. 
