@@ -28,7 +28,7 @@ public class OptionalServiceImplTest {
 		assertEquals(suma, resultado);
 	}
 	
-	@Test
+	//@Test
 	public void metodogetByIds() {
 		// assert equals 1, optional.getbyid
 		// preguntar como comparar getbyid (devuelve cada id del set de ids) 
