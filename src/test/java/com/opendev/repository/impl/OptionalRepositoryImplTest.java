@@ -14,8 +14,7 @@ public class OptionalRepositoryImplTest {
 	public void getOneCorrectoFuncionamiento() {
 		OptionalRepository or = new OptionalRepositoryImpl();
 		Optional optional = new Optional(2, "AA", "Aire acondicionado", 20000.0);
-		Integer id = 2;
-		assertEquals(optional, or.getOne(id));
+		assertEquals(optional, or.getOne(optional.getId()));
 	}
 
 }

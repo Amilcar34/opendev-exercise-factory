@@ -1,6 +1,5 @@
 package com.opendev.service.impl;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.HashSet;
@@ -11,15 +10,10 @@ import org.junit.Test;
 import com.opendev.entity.Car;
 import com.opendev.entity.Model;
 import com.opendev.entity.Optional;
-import com.opendev.repository.CarRepository;
-import com.opendev.repository.OptionalRepository;
-import com.opendev.repository.impl.CarRepositoryImpl;
-import com.opendev.repository.impl.OptionalRepositoryImpl;
 import com.opendev.service.CarService;
-import com.opendev.service.impl.CarServiceImpl;
 
 public class CarServiceImplTest {
-
+	@Test
 	public void queSePuedaCrearYBorrarUnAuto() {
 
 		Integer id = 1;
@@ -68,7 +62,7 @@ public class CarServiceImplTest {
 		CarService cs = new CarServiceImpl();
 		cs.create(model.getId(), idOpcionales);
 		cs.update(2, 1, idOpcionales);
-
+		// 
 	}
 
 }

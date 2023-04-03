@@ -15,6 +15,7 @@ public class ModelRepositoryImplTest {
 		ModelRepository mr = new ModelRepositoryImpl();
 		Model model = new Model(1, "Sedán", 230000.0);
 		assertEquals(model, mr.getOne(1));
+		
 	}
 
 }
