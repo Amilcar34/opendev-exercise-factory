@@ -25,11 +25,7 @@
   - Para ejecutar Lombok en Eclipse, se puede instalar desde Install New Software. Se incluye como parte de la configuración de implementación.
       Se agrega el siguiente link en la opción de <em>Location</em>: https://projectlombok.org/p2 y se finaliza el proceso de intalación reiniciando el IDE.
   - Luego, para agregar Vavr, se copia y pega sus dependencias en el archivo ```pom.xml``` 
-  <dependency>
-    <groupId>io.vavr</groupId>
-    <artifactId>vavr-match</artifactId>
-    <version>0.10.2</version>
-</dependency>
+  <img src="/vavr.png">
 
 
 ## Ejecutar
