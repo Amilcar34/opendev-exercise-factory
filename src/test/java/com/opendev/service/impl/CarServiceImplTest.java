@@ -23,16 +23,24 @@ import com.opendev.service.CarService;
 @RunWith(JUnit4ClassRunner.class)
 
 public class CarServiceImplTest {
-	
+
 	@Test
 	public void usoStats() {
 		CarService cs = new CarServiceImpl();
 		CarRepository cr = new CarRepositoryImpl();
 		assertEquals(cr.count(), cs.stats().getCount_car());
-		
+
 	}
-	
-	// test delete no existe un auto con ese id
+
+	@Test(expected = IllegalArgumentException.class)
+	public void deleteNoExisteId() {
+		CarService cs = new CarServiceImpl();
+		int id = 8;
+		// try {
+		boolean resultado = cs.delete(id);
+		// } catch (Exception e) {
+		assertFalse(resultado);
+	}
 
 	@Test
 	public void calcularElCostoCuandoIdsOptionalsEsNull() {
@@ -96,7 +104,7 @@ public class CarServiceImplTest {
 		CarService cs = new CarServiceImpl();
 
 		// exercise
-		//cs.create(model.getId(), idOptionals);
+		// cs.create(model.getId(), idOptionals);
 		// verify
 		assertTrue(cs.delete(car.getId()));
 
