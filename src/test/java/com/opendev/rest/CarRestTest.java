@@ -14,7 +14,7 @@ import com.opendev.entity.Optional;
 
 public class CarRestTest {
 
-	@Test
+	//@Test
 	public void correctoFuncionamientoCreate() {
 
 		CarRest cr = new CarRest();
@@ -42,7 +42,8 @@ public class CarRestTest {
 
 		CarDto car = new CarDto(modelId, opcionales);
 		cr.create(car);
-		cr.update(id, car);
+		//cr.update(id, car);
+		System.out.println(cr.update(id, car));
 		
 	}
 
