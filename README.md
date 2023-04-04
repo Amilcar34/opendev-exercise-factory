@@ -18,13 +18,18 @@
 
 ## Consigna general
   Disponible para su realización en ```documentos/CONSIGNA.docx```.
-  
+
 
 ## Cambios para su compilación
-  Al importar el proyecto, se podían ver varios errores debido a que parecia que faltaban varias cosas. Nunca iba a poder compilarlo ni poder solucionar los problemas manualmente porque no se permite la edición del codigo source. 
-  Sin embargo, Lombok no estaba instalado en mi IDE, si estaba su dependencia en el archivo pom.xml. 
-  Varios de los errores de compilacion pude solucionarlos con la correcta instalación de las librerias. 
-  Con vavr fue similar, con la diferencia de que tuve que cambiar su dependencia en el archivo y actualizar el IDE. Los errores desaparecieron cuando se actualizo todo en Maven Dependencies.
+  Para compilar el proyecto, es necesario agregar las bibliotecas pedidas más abajo. 
+  - Para ejecutar Lombok en Eclipse, se puede instalar desde Install New Software. Se incluye como parte de la configuración de implementación.
+      Se agrega el siguiente link en la opción de <em>Location</em>: https://projectlombok.org/p2 y se finaliza el proceso de intalación reiniciando el IDE.
+  - Luego, para agregar Vavr, se copia y pega sus dependencias en el archivo ```pom.xml``` 
+  <dependency>
+    <groupId>io.vavr</groupId>
+    <artifactId>vavr-match</artifactId>
+    <version>0.10.2</version>
+</dependency>
 
 
 ## Ejecutar
