@@ -16,12 +16,23 @@ import org.junit.runners.JUnit4;
 import com.opendev.entity.Car;
 import com.opendev.entity.Model;
 import com.opendev.entity.Optional;
+import com.opendev.repository.CarRepository;
+import com.opendev.repository.impl.CarRepositoryImpl;
 import com.opendev.service.CarService;
 
 @RunWith(JUnit4ClassRunner.class)
 
 public class CarServiceImplTest {
 	
+	@Test
+	public void usoStats() {
+		CarService cs = new CarServiceImpl();
+		CarRepository cr = new CarRepositoryImpl();
+		assertEquals(cr.count(), cs.stats().getCount_car());
+		
+	}
+	
+	// test delete no existe un auto con ese id
 
 	@Test
 	public void calcularElCostoCuandoIdsOptionalsEsNull() {
