@@ -8,10 +8,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.Test;
-import org.junit.internal.runners.JUnit4ClassRunner;
-import org.junit.runner.RunWith;
-import org.junit.runner.Runner;
-import org.junit.runners.JUnit4;
 
 import com.opendev.entity.Car;
 import com.opendev.entity.Model;
@@ -20,7 +16,6 @@ import com.opendev.repository.CarRepository;
 import com.opendev.repository.impl.CarRepositoryImpl;
 import com.opendev.service.CarService;
 
-@RunWith(JUnit4ClassRunner.class)
 
 public class CarServiceImplTest {
 

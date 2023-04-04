@@ -17,6 +17,7 @@ import com.opendev.repository.impl.CarRepositoryImpl;
 import com.opendev.repository.impl.ModelRepositoryImpl;
 import com.opendev.repository.impl.OptionalRepositoryImpl;
 import com.opendev.service.CarService;
+import com.opendev.service.ModelService;
 import com.opendev.service.OptionalService;
 
 import io.vavr.control.Try;
@@ -24,9 +25,10 @@ import io.vavr.control.Try;
 public class CarServiceImpl implements CarService {
 
 	CarRepository carRepository = new CarRepositoryImpl();
-	ModelRepository modelRepository = new ModelRepositoryImpl();
+	//ModelRepository modelRepository = new ModelRepositoryImpl();
 	OptionalService optionalService = new OptionalServiceImpl();
-	OptionalRepository optionalRepository = new OptionalRepositoryImpl();
+	ModelService modelService = new ModelServiceImpl();
+	//OptionalRepository optionalRepository = new OptionalRepositoryImpl();
 
 	public Car create(int idModel, Set<Integer> idsOptionals) {
 
@@ -48,8 +50,8 @@ public class CarServiceImpl implements CarService {
 	public Double calculateCost(int idModel, Set<Integer> idsOptionals) {
 
 		if (idsOptionals == null || idsOptionals.isEmpty())
-			return modelRepository.getOne(idModel).getCost();
-		return calculateCost(modelRepository.getOne(idModel), optionalService.getByIds(idsOptionals));
+			return modelService.getOne(idModel).getCost();
+		return calculateCost(modelService.getOne(idModel), optionalService.getByIds(idsOptionals));
 	}
 
 	public StatsCar stats() {
@@ -63,12 +65,12 @@ public class CarServiceImpl implements CarService {
 
 	private Car saveCar(Car entity, int idModel, Set<Integer> idsOptionals) {
 
-		var model = modelRepository.getOne(idModel);
+		var model = modelService.getOne(idModel);
 		entity.setModel(model);
 		Set<Optional> optionals;
 		optionals = idsOptionals == null || idsOptionals.isEmpty() ? new HashSet<Optional>() : optionalService.getByIds(idsOptionals);
 		entity.setOptionals(optionals);
-		entity.setPrice(calculateCost(model, optionals));
+		entity.setPrice(calculateCost(entity.getModel(), entity.getOptionals()));
 		return carRepository.save(entity);
 	}
 

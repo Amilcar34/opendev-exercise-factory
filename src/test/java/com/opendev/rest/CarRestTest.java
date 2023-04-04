@@ -1,20 +1,19 @@
 package com.opendev.rest;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.Test;
 
 import com.opendev.dto.CarDto;
-import com.opendev.entity.Model;
 import com.opendev.entity.Optional;
+import com.opendev.repository.CarRepository;
+import com.opendev.repository.impl.CarRepositoryImpl;
 
 public class CarRestTest {
 
-	//@Test
+	@Test
 	public void correctoFuncionamientoCreate() {
 
 		CarRest cr = new CarRest();
@@ -26,6 +25,7 @@ public class CarRestTest {
 		opcionales.add(opcional.getId());
 
 		CarDto car = new CarDto(modelId, opcionales);
+		cr.create(car);
 		assertEquals(modelId, car.getModel());
 		assertEquals(opcionales, car.getOptionals());
 	}
@@ -34,20 +34,21 @@ public class CarRestTest {
 	public void actualizarUnAuto() {
 		CarRest cr = new CarRest();
 
-		Integer modelId = 3;
 		int id = 1;
 		Optional opcional = new Optional(3, "ABS", "Sistema de frenos ABS", 14000.0);
 		Set<Integer> opcionales = new HashSet<Integer>();
 		opcionales.add(opcional.getId());
 
-		CarDto car = new CarDto(modelId, opcionales);
-		cr.create(car);
-		//cr.update(id, car);
-		System.out.println(cr.update(id, car));
+		CarDto car = new CarDto(3, opcionales);
+		
+		cr.update(id, car);
+		
 		
 	}
+	
+	// test delete por id
 
-	//@Test
+	@Test
 	public void calculateCost() {
 		CarRest cr = new CarRest();
 
@@ -64,9 +65,11 @@ public class CarRestTest {
 		assertEquals(resultadoEsperado, resultado);
 	}
 	
-	//@Test
+	@Test
 	public void metodoStats() {
 		CarRest cr = new CarRest();
+		// no se 
+		
 
 	}
 }
