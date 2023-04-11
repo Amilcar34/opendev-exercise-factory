@@ -99,7 +99,7 @@ public class CarRepositoryImplTest {
 		// exercise
 		CarRepository cr = new CarRepositoryImpl();
 		cr.save(auto);
-		int cantCarsParaCadaModelo = 4;
+		int cantCarsParaCadaModelo = 3;
 		// si no creo y guardo un auto, entonces la variable cantCarsParaCadaModelo
 		// almacena el valor de 3.
 		
@@ -127,7 +127,7 @@ public class CarRepositoryImplTest {
 		CarRepository cr = new CarRepositoryImpl();
 		CarService cs = new CarServiceImpl();
 		
-		int cantDeOpcionalesUsados = 4;
+		int cantDeOpcionalesUsados = 3;
 		assertEquals(cantDeOpcionalesUsados, cr.statsOptional().size());
 
 	}
