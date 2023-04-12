@@ -35,8 +35,8 @@
 
 ## Funciones
 ### Método statsOptional
-  StatsOptional pertenece a la clase ```CarRepositoryImpl.java```. Dentro, se agrupan los autos por sus opcionales en un mapa; <em>optionalGroupByCars</em>.
-  En <em>optionalTotalSum</em> la funcion Lambda asigna cada objeto Car al tamaño de su lista de opcionales. Despues se reduce a un solo valor sumando los tamaños de todas las
+  ```StatsOptional``` pertenece a la clase ```CarRepositoryImpl.java```. Dentro, se agrupan los autos por sus opcionales en un mapa; ```optionalGroupByCars```.
+  En ```optionalTotalSum``` la función Lambda asigna cada objeto Car al tamaño de su lista de opcionales. Después se reduce a un solo valor sumando los tamaños de todas las
   listas opcionales iniciando por 0. Calcula el numero total de opcionales de Cars en el map sumando el tamaño de opcionales para cada objeto.
   En el foreach, se calcula el porcentaje de opcionales para Car, se almacena y se calcula estadisticas sobre las funciones opcionales de cada Cars.
 
