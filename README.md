@@ -24,8 +24,14 @@
   Para compilar el proyecto, es necesario agregar las bibliotecas pedidas más abajo. 
   - Para ejecutar Lombok en Eclipse, se puede instalar desde Install New Software. Se incluye como parte de la configuración de implementación.
       Se agrega el siguiente link en la opción de <em>Location</em>: https://projectlombok.org/p2 y se finaliza el proceso de intalación reiniciando el IDE.
-  - Luego, para agregar Vavr, se copia y pega sus dependencias en el archivo ```pom.xml``` 
-  <img src="/vavr.png">
+  - Luego pegar sus dependencias en ```pom.xml``` .
+  ```<!-- https://mvnrepository.com/artifact/io.vavr/vavr -->```
+      ```<dependency>```
+        ```<groupId>io.vavr</groupId>```
+        ```<artifactId>vavr</artifactId>```
+        ```<version>0.9.0</version>```
+      ```</dependency>```
+
 
 
 ## Ejecutar
