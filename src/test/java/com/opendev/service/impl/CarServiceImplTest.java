@@ -3,6 +3,7 @@ package com.opendev.service.impl;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -14,6 +15,7 @@ import com.opendev.entity.Model;
 import com.opendev.entity.Optional;
 import com.opendev.repository.CarRepository;
 import com.opendev.repository.impl.CarRepositoryImpl;
+import com.opendev.rest.CarRest;
 import com.opendev.service.CarService;
 
 
@@ -93,11 +95,11 @@ public class CarServiceImplTest {
 
 		Car car = new Car(id, model, opcionals);
 
-		Set<Integer> idOptionals = new HashSet<Integer>();
-		idOptionals.add(opcional.getId());
 		// setup
 		CarService cs = new CarServiceImpl();
+		CarService csMock = mock(CarServiceImpl.class);
 
+		//when(csMock.delete(car.getId())).thenReturn(true);
 		// exercise
 		// cs.create(model.getId(), idOptionals);
 		// verify

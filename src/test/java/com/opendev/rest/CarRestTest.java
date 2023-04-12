@@ -7,6 +7,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.Test;
+import org.mockito.Mockito;
+
 import com.opendev.dto.CarDto;
 import com.opendev.entity.Optional;
 import static org.mockito.Mockito.*;
@@ -25,8 +27,10 @@ public class CarRestTest {
 
 		CarDto car = new CarDto(2, opcionales);
 		// al auto con id 1 con modelo 1 y opcionales 2 y 4, le cambio el modelo a 2 y opcionales 3, 1
+		// no entiendoooooooooooooooooooo
 		String esperado = crMock.calculateCost(car);
 		when(crMock.update(1, car)).thenReturn(esperado);
+		//verify(crMock, times(1)).update(1, car);
 		assertEquals("271000.0", cr.calculateCost(car));
 	}
 	
