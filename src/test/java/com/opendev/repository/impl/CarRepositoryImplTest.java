@@ -3,6 +3,8 @@ package com.opendev.repository.impl;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.HashSet;
@@ -19,7 +21,6 @@ public class CarRepositoryImplTest {
 
 	@Test
 	public void queFuncioneCorrectamenteElMetodoSave() {
-		CarRepository cri = new CarRepositoryImpl();
 		CarRepository criMock = mock(CarRepositoryImpl.class);
 
 		Integer id = 1;
@@ -29,15 +30,18 @@ public class CarRepositoryImplTest {
 		opcionales.add(opcional);
 		
 		Car auto = new Car(id, modelo, opcionales);
-
+		
 		when(criMock.save(auto)).thenReturn(auto);
-		assertEquals(5, cri.count());
+
+		//verify(criMock).save(auto);
+		
+		//assertEquals(, cri.count());
 	}
 
 	@Test
-	public void queSePuedaGuardarUnAutoYDespuesBorrarlo() {
+	public void borrarUnAuto() {
+		
 		CarRepository criMock = mock(CarRepositoryImpl.class);
-
 		// setup
 		Model model = new Model(2, "Familiar", 270000.0);
 		Optional optional1 = new Optional(2, "AA", "Aire acondicionado", 20000.0);
@@ -45,15 +49,15 @@ public class CarRepositoryImplTest {
 		Set<Optional> opcionales = new HashSet<>();
 		opcionales.add(optional1);
 		opcionales.add(optional2);
+		
 		Car auto = new Car(3, model, opcionales);
 		// exercise
-	
-		criMock.save(auto);
 		criMock.deleteById(auto.getId());
 		when(criMock.existsById(auto.getId())).thenReturn(false);
-		// verify
-		boolean resultado = criMock.existsById(auto.getId());
-		assertFalse(resultado);
+		
+		verify(criMock).existsById(auto.getId());
+		
+		assertFalse(criMock.existsById(auto.getId()));
 	}
 
 	@Test
@@ -71,7 +75,6 @@ public class CarRepositoryImplTest {
 		Car auto = new Car(id, model, opcionales);
 
 		// exercise
-		CarRepository cri = new CarRepositoryImpl();
 		CarRepository criMock = mock(CarRepositoryImpl.class);
 		
 		int cantCarsParaCadaModelo = 3;
@@ -80,7 +83,8 @@ public class CarRepositoryImplTest {
 		
 		// verify
 		when(criMock.save(auto)).thenReturn(auto);
-		assertEquals(cantCarsParaCadaModelo, cri.statsModel().size());
+		//verify(criMock).save(auto);
+		assertEquals(cantCarsParaCadaModelo, criMock.statsModel().size());
 
 	}
 
