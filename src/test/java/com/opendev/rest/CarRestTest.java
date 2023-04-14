@@ -3,75 +3,112 @@ package com.opendev.rest;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import java.util.HashSet;
+import java.util.Collections;
 import java.util.Set;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.opendev.dto.CarDto;
+import com.opendev.entity.Car;
+import com.opendev.entity.Model;
 import com.opendev.entity.Optional;
+import com.opendev.service.impl.CarServiceImpl;
 
 import static org.mockito.Mockito.*;
+
 public class CarRestTest {
 
 	@Test
-	public void queSePuedaActualizarUnAuto() {
-		CarRest crMock = mock(CarRest.class);
+	public void vUpdate() {
+		
+		CarServiceImpl carService = mock(CarServiceImpl.class);
+		CarRest cr = new CarRest(carService);
 
-		Optional opcional = new Optional(3, "ABS", "Sistema de frenos ABS", 14000.0);
+		Model model = new Model(2, "Familiar", 270000.0);
+		Optional opcional1 = new Optional(3, "ABS", "Sistema de frenos ABS", 14000.0);
 		Optional opcional2 = new Optional(1, "TC", "Techo corredizo", 12000.0);
-		Set<Integer> opcionales = new HashSet<Integer>();
-		opcionales.add(opcional.getId());
-		opcionales.add(opcional2.getId());
+		
+		Set<Integer> opcionalesId = Set.of(opcional1.getId(), opcional2.getId());
+		
+		Set<Optional> opcionales = Set.of(opcional1, opcional2);
 
-		CarDto car = new CarDto(2, opcionales);
-		// al auto con id 1 con modelo 1 y opcionales 2 y 4, le cambio el modelo a 2 y opcionales 3, 1
-		crMock.update(1, car);
-		when(crMock.update(1, car)).thenReturn(car.toString());
+		CarDto car = new CarDto(2, opcionalesId);
+		Car auto = new Car(1, model, opcionales);
 
-	    verify(crMock, times(1)).update(1, car);
-	    assertEquals(crMock.update(1, car), car.toString());
-	}
+		when(carService.update(1, model.getId(), opcionalesId)).thenReturn(auto);
+
+		String resultado = cr.update(1, car);
+		String jsonExpected = "{\"id\":1,\"model\":{\"id\":2,\"name\":\"Familiar\",\"cost\":270000.0},\"optionals\":[{\"id\":3,\"name\":\"ABS\",\"fullName\":\"Sistema de frenos ABS\",\"cost\":14000.0},{\"id\":1,\"name\":\"TC\",\"fullName\":\"Techo corredizo\",\"cost\":12000.0}],\"price\":296000.0}";
+	 
+		assertEquals(jsonExpected, resultado);
 	
+	}
+
 	@Test
-	public void correctoFuncionamientoCreate() {
-		// arreglar
+	public void vCreate() {
+
+		CarServiceImpl carService = mock(CarServiceImpl.class);
+		CarRest cr = new CarRest(carService);
 
 		Optional opcional = new Optional(1, "TC", "Techo corredizo", 12000.0);
-		Set<Integer> opcionales = new HashSet<Integer>();
-		opcionales.add(opcional.getId());
+		Model model = new Model(2, "Familiar", 270000.0);
+		
+		Set<Integer> opcionales = Set.of(opcional.getId());
+		
+		Set<Optional> setOPtionales = Collections.singleton(opcional);
 
 		CarDto car = new CarDto(2, opcionales);
-		//cr.create(car);
-		assertEquals(2, car.getModel());
-		assertEquals(opcionales, car.getOptionals());
+		Car auto = new Car(1, model, setOPtionales);
+
+		when(carService.create(2, opcionales)).thenReturn(auto);
+
+		String resultado = cr.create(car);
+		String jsonExpected = "{\"id\":1,\"model\":{\"id\":2,\"name\":\"Familiar\",\"cost\":270000.0},\"optionals\":[{\"id\":1,\"name\":\"TC\",\"fullName\":\"Techo corredizo\",\"cost\":12000.0}],\"price\":282000.0}";
+		
+		assertEquals(jsonExpected, resultado);
 	}
-	
+
 	@Test
-	public void metodoDeleteCorrectoFuncionamiento() {
-		CarRest cr = new CarRest();
-		assertTrue(cr.delete(4));
+	public void metodoDelete() {
+		
+		CarServiceImpl carService = mock(CarServiceImpl.class);
+		CarRest cr = new CarRest(carService);
+		
+		when(carService.delete(1)).thenReturn(true);
+		
+		assertTrue(cr.delete(1));
 	}
 
 	@Test
 	public void calculateCost() {
-		CarRest cr = new CarRest();
-
-		Integer modelId = 1;
+		
+		CarServiceImpl carService = mock(CarServiceImpl.class);
+		CarRest cr = new CarRest(carService);
+		
 		Optional opcional = new Optional(4, "LL", "Llantas de aleación", 12000.0);
 		Optional opcional2 = new Optional(1, "TC", "Techo corredizo", 12000.0);
-		Set<Integer> opcionales = new HashSet<Integer>();
-		opcionales.add(opcional.getId());
-		opcionales.add(opcional2.getId());
+		
+		Set<Integer> opcionalesId = Set.of(opcional.getId(), opcional2.getId());
 
-		CarDto car = new CarDto(modelId, opcionales);
+		CarDto car = new CarDto(2, opcionalesId);
+		
+		when(carService.calculateCost(2, opcionalesId)).thenReturn(294000.0);
+		
 		String resultado = cr.calculateCost(car);
-		String resultadoEsperado =  "254000.0";
+		String resultadoEsperado = "294000.0";
+		
 		assertEquals(resultadoEsperado, resultado);
 	}
-	
-	//@Test
+
+	@Test
 	public void metodoStats() {
+		CarServiceImpl carService = new CarServiceImpl();
+		CarRest cr = new CarRest(carService);
+		
+		String resultado = cr.stats();
+		String jsonExpected = "{\"count_car\":5,\"cars\":[{\"model\":\"Familiar\",\"count\":1,\"percent\":20.0},{\"model\":\"Coupé\",\"count\":2,\"percent\":40.0},{\"model\":\"Sedán\",\"count\":2,\"percent\":40.0}],\"optionals\":[{\"optional\":\"AA\",\"count\":3,\"percent\":30.0},{\"optional\":\"LL\",\"count\":4,\"percent\":40.0},{\"optional\":\"TC\",\"count\":2,\"percent\":20.0},{\"optional\":\"ABS\",\"count\":1,\"percent\":10.0}]}";
+		
+		assertEquals(resultado, jsonExpected);
 		
 	}
 }

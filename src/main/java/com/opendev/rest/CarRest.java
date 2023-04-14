@@ -7,17 +7,22 @@ import com.opendev.service.impl.CarServiceImpl;
 
 public class CarRest {
 
-	CarService carService = new CarServiceImpl();
+	CarService carService;
 	Gson gson = new Gson();
-	
+
+	public CarRest(CarService carService) {
+		super();
+		this.carService = carService;
+	}
+
 	public String create(CarDto carDto) {
 		return gson.toJson(carService.create(carDto.getModel(), carDto.getOptionals()));
 	}
-	
+
 	public String update(int id, CarDto carDto) {
 		return gson.toJson(carService.update(id, carDto.getModel(), carDto.getOptionals()));
 	}
-	
+
 	public boolean delete(int id) {
 		return carService.delete(id);
 	}

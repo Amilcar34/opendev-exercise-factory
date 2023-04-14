@@ -24,7 +24,8 @@ public class CarServiceImplTest {
 	@Test
 	public void usoStats() {
 		CarService cs = new CarServiceImpl();
-		CarRepository cr = new CarRepositoryImpl();
+		CarRepository cr = mock(CarRepositoryImpl.class);
+		
 		assertEquals(cr.count(), cs.stats().getCount_car());
 
 	}
@@ -109,7 +110,7 @@ public class CarServiceImplTest {
 
 	@Test
 	public void queSePuedaActualizarUnAutoDespuesDeCrearloYCalcularSuCosto() {
-		Integer idCar = 4;
+		
 		Model model = new Model(3, "Coupé", 270000.0);
 		Optional opcional1 = new Optional(1, "TC", "Techo corredizo", 12000.0);
 		Optional opcional2 = new Optional(2, "AA", "Aire acondicionado", 20000.0);
@@ -126,8 +127,6 @@ public class CarServiceImplTest {
 		idOpcionales.add(opcional2.getId());
 		idOpcionales.add(opcional3.getId());
 		idOpcionales.add(opcional4.getId());
-
-		Car car = new Car(idCar, model, opcionales);
 
 		CarService cs = new CarServiceImpl();
 		cs.create(model.getId(), idOpcionales);

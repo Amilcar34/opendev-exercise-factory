@@ -2,10 +2,11 @@ package com.opendev;
 
 import com.opendev.dto.CarDto;
 import com.opendev.rest.CarRest;
+import com.opendev.service.impl.CarServiceImpl;
 
 public class OpenDevApplication {
 
-	static CarRest rest = new CarRest();
+	static CarRest rest = new CarRest(new CarServiceImpl());
 
 	public static void main(String[] args) {
 		
