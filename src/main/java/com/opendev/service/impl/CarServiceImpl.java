@@ -25,10 +25,19 @@ import io.vavr.control.Try;
 public class CarServiceImpl implements CarService {
 
 	CarRepository carRepository = new CarRepositoryImpl();
-	//ModelRepository modelRepository = new ModelRepositoryImpl();
 	OptionalService optionalService = new OptionalServiceImpl();
 	ModelService modelService = new ModelServiceImpl();
-	//OptionalRepository optionalRepository = new OptionalRepositoryImpl();
+	
+	public CarServiceImpl(CarRepository carRepository, OptionalService optionalService, ModelService modelService) {
+		super();
+		this.carRepository = carRepository;
+		this.optionalService = optionalService;
+		this.modelService = modelService;
+	}
+
+	public CarServiceImpl() {
+		super();
+	}
 
 	public Car create(int idModel, Set<Integer> idsOptionals) {
 
@@ -64,14 +73,14 @@ public class CarServiceImpl implements CarService {
 	}
 
 	private Car saveCar(Car entity, int idModel, Set<Integer> idsOptionals) {
-
 		var model = modelService.getOne(idModel);
 		entity.setModel(model);
 		Set<Optional> optionals;
 		optionals = idsOptionals == null || idsOptionals.isEmpty() ? new HashSet<Optional>() : optionalService.getByIds(idsOptionals);
 		entity.setOptionals(optionals);
 		entity.setPrice(calculateCost(entity.getModel(), entity.getOptionals()));
-		return carRepository.save(entity);
+		Car cardb= carRepository.save(entity);
+		return cardb;
 	}
 
 	private Double calculateCost(Model model, Set<Optional> optionals) {

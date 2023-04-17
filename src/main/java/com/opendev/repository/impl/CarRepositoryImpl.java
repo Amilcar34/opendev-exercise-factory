@@ -31,8 +31,10 @@ public class CarRepositoryImpl implements CarRepository {
 	}
 
 	@Override
-	public void deleteById(int id) {
-		dbCars.remove(id);
+	public boolean deleteById(int id) {
+		if (deleteById(id))
+			return true;
+		return false;
 	}
 
 	@Override
@@ -72,11 +74,13 @@ public class CarRepositoryImpl implements CarRepository {
 
 		Set<StatsOptional> statsOptionals = new HashSet<>();
 
-		var optionalGroupByCars = dbCars.entrySet().stream().map(Entry::getValue)
-				.flatMap(car -> car.getOptionals().stream().map(optional -> new AbstractMap.SimpleEntry<>(optional, car)))
-				.collect(groupingBy(AbstractMap.SimpleEntry::getKey, mapping(AbstractMap.SimpleEntry::getValue, toList())));
+		var optionalGroupByCars = dbCars.entrySet().stream().map(Entry::getValue).flatMap(
+				car -> car.getOptionals().stream().map(optional -> new AbstractMap.SimpleEntry<>(optional, car)))
+				.collect(groupingBy(AbstractMap.SimpleEntry::getKey,
+						mapping(AbstractMap.SimpleEntry::getValue, toList())));
 
-		var optionalTotalSum = dbCars.entrySet().stream().map(Entry::getValue).map(c -> c.getOptionals().size()).reduce(0, Integer::sum);
+		var optionalTotalSum = dbCars.entrySet().stream().map(Entry::getValue).map(c -> c.getOptionals().size())
+				.reduce(0, Integer::sum);
 
 		optionalGroupByCars.forEach((k, v) -> {
 			double percent = 100 * v.size() / optionalTotalSum;
@@ -90,7 +94,8 @@ public class CarRepositoryImpl implements CarRepository {
 			put(1, new Car(1, dbModels.get(1), of(dbOptionals.get(2), dbOptionals.get(4))));
 			put(2, new Car(2, dbModels.get(1), of(dbOptionals.get(1), dbOptionals.get(4))));
 			put(3, new Car(3, dbModels.get(2), of(dbOptionals.get(2), dbOptionals.get(4))));
-			put(4, new Car(4, dbModels.get(3), of(dbOptionals.get(1), dbOptionals.get(2), dbOptionals.get(3), dbOptionals.get(4))));
+			put(4, new Car(4, dbModels.get(3),
+					of(dbOptionals.get(1), dbOptionals.get(2), dbOptionals.get(3), dbOptionals.get(4))));
 			put(5, new Car(5, dbModels.get(3), of()));
 		}
 	};
