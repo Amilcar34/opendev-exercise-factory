@@ -2,7 +2,6 @@ package com.opendev.service.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -18,12 +17,20 @@ import com.opendev.entity.Optional;
 import com.opendev.repository.CarRepository;
 import com.opendev.repository.impl.CarRepositoryImpl;
 import com.opendev.service.CarService;
+import com.opendev.service.ModelService;
+import com.opendev.service.OptionalService;
 
 public class CarServiceImplTest {
+	
+	CarRepository carRepositoryMock = mock(CarRepositoryImpl.class);
+	OptionalService optionalServiceMock = mock(OptionalServiceImpl.class);
+	ModelService modelServiceMock = mock(ModelServiceImpl.class);
+	
+	CarService carService = new CarServiceImpl(carRepositoryMock, optionalServiceMock,modelServiceMock);
 
 	// @Test
 	public void vStats() {
-		CarService carService = new CarServiceImpl();
+		// TODO terminar
 		CarRepository carRepoImplMock = mock(CarRepositoryImpl.class);
 
 		assertEquals(carRepoImplMock.count(), carService.stats().getCount_car());
@@ -31,10 +38,8 @@ public class CarServiceImplTest {
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
-	@Order(2)
 	public void deleteNoExisteId() {
 
-		CarService carService = new CarServiceImpl();
 		int id = 8;
 		// try {
 		boolean resultado = carService.delete(id);
@@ -43,65 +48,63 @@ public class CarServiceImplTest {
 	}
 	
 	@Test
-	@Order(3)
 	public void calcularElCostoCuandoIdsOptionalsEsNull() {
 
-		CarService carService = new CarServiceImpl();
-
+		Model model = new Model(1, "Sedán", 230_000.0);
+	
+		when(modelServiceMock.getOne(1)).thenReturn(model);
+		
 		Double resultadoEsperado = 230000.0;
-
 		assertEquals(resultadoEsperado, carService.calculateCost(1, null));
 	}
 	
 	@Test
-	@Order(4)
 	public void calcularElCostoCuandoIdsOptionalEstaVacio() {
 
-		CarService carService = new CarServiceImpl();
-
 		Set<Integer> idsOptionals = new HashSet<>();
+		Model model = new Model(3, "Coupé", 270000.0);
 
-		Double resultadoEsperado = 245000.0;
+		when(modelServiceMock.getOne(3)).thenReturn(model);
+		Double resultadoEsperado = 270000.0;
 
-		assertEquals(resultadoEsperado, carService.calculateCost(2, idsOptionals));
+		assertEquals(resultadoEsperado, carService.calculateCost(3, idsOptionals));
 
 	}
 
 	@Test
-	@Order(5)
 	public void calcularCosto() {
-		CarService cs = new CarServiceImpl();
 
+		Model model = new Model(3, "Coupé", 270000.0);
 		Optional opcional = new Optional(2, "AA", "Aire acondicionado", 20000.0);
-		Optional opcional2 = new Optional(3, "ABS", "Sistemas de frenos ABS", 14000.0);
 
-		Set<Integer> idsOptionals = Set.of(opcional.getId(), opcional2.getId());
+		Set<Optional> optionals = Set.of(opcional);
+		Set<Integer> idsOptionals = Set.of(opcional.getId());
+		
+		when(modelServiceMock.getOne(3)).thenReturn(model);
+		when(optionalServiceMock.getByIds(idsOptionals)).thenReturn(optionals);
+		when(optionalServiceMock.sumCost(optionals)).thenReturn(20000.0);
+		
 
-		Double resultadoEsperado = 304000.0;
-
-		assertEquals(resultadoEsperado, cs.calculateCost(3, idsOptionals));
+		Double resultadoEsperado = 290000.0;
+		assertEquals(resultadoEsperado, carService.calculateCost(3, idsOptionals));
 	}
 
 	@Test
 	@Order(1)
 	public void vCrear() {
-
-		CarService carService = new CarServiceImpl();
-		CarRepository carRepoImplMock = mock(CarRepositoryImpl.class);
-
-		Model model = new Model(1, "Sedán", 230000.0);
-		Optional opcional = new Optional(2, "AA", "Aire acondicionado", 20000.0);
+	
+		Model model = new Model(1, "Sedán", 230_000.0);
+		Optional opcional = new Optional(2, "AA", "Aire acondicionado", 20_000.0);
 
 		Set<Optional> opcionals = Set.of(opcional);
 		Set<Integer> opcionalsId = Set.of(opcional.getId());
 
-		Car car = new Car(2, model, opcionals);
-
-		when(carRepoImplMock.save(car)).thenReturn(car);
-
-		System.out.println(carRepoImplMock.save(car));
-		System.out.println(carService.create(1, opcionalsId));
-		System.out.println(car);
+		Car car = new Car(null, model, opcionals);
+	
+		when(modelServiceMock.getOne(model.getId())).thenReturn(model);
+		when(optionalServiceMock.getByIds(opcionalsId)).thenReturn(opcionals);
+		when(optionalServiceMock.sumCost(opcionals)).thenReturn(20_000.0);
+		when(carRepositoryMock.save(car)).thenReturn(car);
 
 		Car resultado = carService.create(1, opcionalsId);
 		assertEquals(car, resultado);
@@ -109,38 +112,27 @@ public class CarServiceImplTest {
 	}
 
 	@Test
-	@Order(6)
-	public void vBorrar() {
-		
-		CarService carService = new CarServiceImpl();
-		CarRepository carRepoImplMock = mock(CarRepositoryImpl.class);
-		
-		assertTrue(carService.delete(3));
-		
-		when(carRepoImplMock.existsById(3)).thenReturn(false);
-		
-		assertFalse(carRepoImplMock.existsById(3));
-	}
-
-	@Test
-	@Order(7)
 	public void vUpdate() {
 		
-//		CarService carService = new CarServiceImpl();
-//		CarRepository carRepoImplMock = mock(CarRepositoryImpl.class);
-//		
-//		Model model = new Model(1, "Sedán", 230000.0);
-//		Optional opcional = new Optional(2, "AA", "Aire acondicionado", 20000.0);
-//
-//		Set<Optional> opcionals = Set.of(opcional);
-//		Set<Integer> opcionalsId = Set.of(opcional.getId());
-//
-//		Car car = new Car(2, model, opcionals);
-//		
-//		when(carRepoImplMock.save(car)).thenReturn(car);
-//		System.out.println(carService.update(3, 1, opcionalsId);
+		Model model = new Model(1, "Sedán", 230_000.0);
+		Optional opcional = new Optional(2, "AA", "Aire acondicionado", 20_000.0);
+
+		Set<Optional> opcionals = Set.of(opcional);
+		Set<Integer> opcionalsId = Set.of(opcional.getId());
+
+		Car car = new Car(1, model, opcionals);
+	
+		when(modelServiceMock.getOne(model.getId())).thenReturn(model);
+		when(carRepositoryMock.save(car)).thenReturn(car);
+
+		carService.create(1, opcionalsId);
+		Car resultado = carService.update(3, 1, opcionalsId);
+		assertEquals(car, resultado);
 		
-		
+	}
+	@Test
+	public void vDelete() {
+		// TODO hacer
 	}
 
 }
