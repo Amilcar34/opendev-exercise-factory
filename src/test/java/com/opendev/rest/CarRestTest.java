@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
 import com.opendev.contracts.StatsCar;
-import com.opendev.contracts.StatsModel;
 import com.opendev.dto.CarDto;
 import com.opendev.entity.Car;
 import com.opendev.entity.Model;
