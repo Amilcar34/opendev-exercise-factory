@@ -24,5 +24,17 @@ public class OptionalServiceImplTest {
 		Double resultado = os.sumCost(optionals);
 		Assertions.assertEquals(suma, resultado);
 	}
+	
+	@Test
+	public void vGetByIds() {
+		
+		OptionalService os = new OptionalServiceImpl();
+		
+		Optional optional = new Optional(1, "TC", "Techo corredizo", 12000.0);
+		Set<Integer> idsOptionals = Set.of(optional.getId());
+		
+		Assertions.assertEquals(optional, os.getByIds(idsOptionals));
+		
+	}
 
 }
