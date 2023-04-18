@@ -1,12 +1,10 @@
 package com.opendev.repository.impl;
 
-import static org.junit.Assert.assertEquals;
-
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.opendev.entity.Model;
 import com.opendev.repository.ModelRepository;
-import com.opendev.repository.impl.ModelRepositoryImpl;
 
 public class ModelRepositoryImplTest {
 	
@@ -14,7 +12,7 @@ public class ModelRepositoryImplTest {
 	public void getOneCorrectoFuncionamiento() {
 		ModelRepository mr = new ModelRepositoryImpl();
 		Model model = new Model(1, "Sedán", 230000.0);
-		assertEquals(model, mr.getOne(1));
+		Assertions.assertEquals(model, mr.getOne(1));
 		
 	}
 
