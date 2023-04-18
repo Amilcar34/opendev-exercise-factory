@@ -1,12 +1,10 @@
 package com.opendev.repository.impl;
 
-import static org.junit.Assert.assertEquals;
-
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.opendev.entity.Optional;
 import com.opendev.repository.OptionalRepository;
-import com.opendev.repository.impl.OptionalRepositoryImpl;
 
 public class OptionalRepositoryImplTest {
 	
@@ -14,7 +12,7 @@ public class OptionalRepositoryImplTest {
 	public void getOneCorrectoFuncionamiento() {
 		OptionalRepository or = new OptionalRepositoryImpl();
 		Optional optional = new Optional(2, "AA", "Aire acondicionado", 20000.0);
-		assertEquals(optional, or.getOne(optional.getId()));
+Assertions.assertEquals(optional, or.getOne(optional.getId()));
 	}
 
 }
