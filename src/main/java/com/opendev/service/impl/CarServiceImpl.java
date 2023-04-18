@@ -36,7 +36,6 @@ public class CarServiceImpl implements CarService {
 	}
 
 	public CarServiceImpl() {
-		super();
 	}
 
 	public Car create(int idModel, Set<Integer> idsOptionals) {
@@ -60,7 +59,7 @@ public class CarServiceImpl implements CarService {
 
 		if (idsOptionals == null || idsOptionals.isEmpty())
 			return modelService.getOne(idModel).getCost();
-		return calculateCost(modelService.getOne(idModel), optionalService.getByIds(idsOptionals));
+		return calculateCostt(modelService.getOne(idModel), optionalService.getByIds(idsOptionals));
 	}
 
 	public StatsCar stats() {
@@ -78,12 +77,12 @@ public class CarServiceImpl implements CarService {
 		Set<Optional> optionals;
 		optionals = idsOptionals == null || idsOptionals.isEmpty() ? new HashSet<Optional>() : optionalService.getByIds(idsOptionals);
 		entity.setOptionals(optionals);
-		entity.setPrice(calculateCost(entity.getModel(), entity.getOptionals()));
+		entity.setPrice(calculateCostt(entity.getModel(), entity.getOptionals()));
 		Car cardb= carRepository.save(entity);
 		return cardb;
 	}
 
-	private Double calculateCost(Model model, Set<Optional> optionals) {
+	private Double calculateCostt(Model model, Set<Optional> optionals) {
 
 		if (optionals == null || optionals.isEmpty())
 			return model.getCost();
