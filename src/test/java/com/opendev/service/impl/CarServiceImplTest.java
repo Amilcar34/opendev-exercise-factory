@@ -1,13 +1,7 @@
 package com.opendev.service.impl;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThrows;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.HashSet;
@@ -61,7 +55,7 @@ public class CarServiceImplTest {
 		});
 
 		String expectedMessage = "No existe un Auto con este id:" + id;
-		assertEquals(expectedMessage, exception.getMessage());
+		Assertions.assertEquals(expectedMessage, exception.getMessage());
 	}
 
 	@Test
