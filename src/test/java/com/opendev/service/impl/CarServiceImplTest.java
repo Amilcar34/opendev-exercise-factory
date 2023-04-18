@@ -1,6 +1,4 @@
 package com.opendev.service.impl;
-
-import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -47,7 +45,7 @@ public class CarServiceImplTest {
 		when(carRepositoryMock.existsById(id)).thenReturn(false);
 
 		// assertThrows: verificar excepcion
-		IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+		IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class, () -> {
 			// la expresion lambda se pasa como argumento a assertThrows y lanza la
 			// excepcion
 			// si se aprueba la excepcion, se pasa la prueba.
