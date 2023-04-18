@@ -200,10 +200,4 @@ public class CarServiceImplTest {
 
 	}
 
-	@Test
-	public void vConstructor() {
-		CarService carServiceMock = new CarServiceImpl();
-
-	}
-
 }
