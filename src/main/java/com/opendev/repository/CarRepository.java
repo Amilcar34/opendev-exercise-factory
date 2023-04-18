@@ -10,7 +10,7 @@ public interface CarRepository {
 
 	Car save(Car entity);
 
-	boolean deleteById(int id);
+	void deleteById(int id);
 
 	boolean existsById(int id);
 
