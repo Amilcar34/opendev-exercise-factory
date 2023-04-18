@@ -31,10 +31,8 @@ public class CarRepositoryImpl implements CarRepository {
 	}
 
 	@Override
-	public boolean deleteById(int id) {
-		if (deleteById(id))
-			return true;
-		return false;
+	public void deleteById(int id) {
+		dbCars.remove(id);
 	}
 
 	@Override
