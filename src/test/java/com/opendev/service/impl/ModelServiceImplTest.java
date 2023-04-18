@@ -1,7 +1,5 @@
 package com.opendev.service.impl;
-
-import static org.junit.Assert.assertEquals;
-
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import com.opendev.entity.Model;
@@ -15,7 +13,7 @@ public class ModelServiceImplTest {
 		ModelService modelServiceI = new ModelServiceImpl();
 		
 		Model model = new Model(1, "Sedán", 230000.0);
-		assertEquals(model, modelServiceI.getOne(model.getId()));
+		Assertions.assertEquals(model, modelServiceI.getOne(model.getId()));
 		
 		
 	}
