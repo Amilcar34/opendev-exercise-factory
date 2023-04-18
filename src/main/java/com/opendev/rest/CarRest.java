@@ -3,7 +3,6 @@ package com.opendev.rest;
 import com.google.gson.Gson;
 import com.opendev.dto.CarDto;
 import com.opendev.service.CarService;
-import com.opendev.service.impl.CarServiceImpl;
 
 public class CarRest {
 
