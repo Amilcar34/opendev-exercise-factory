@@ -6,11 +6,12 @@ import java.util.Set;
 
 import com.opendev.entity.Optional;
 import com.opendev.repository.OptionalRepository;
+import com.opendev.repository.impl.OptionalRepositoryImpl;
 import com.opendev.service.OptionalService;
 
 public class OptionalServiceImpl implements OptionalService {
   
-  OptionalRepository optionalRepository;
+  OptionalRepository optionalRepository = new OptionalRepositoryImpl();
 
   @Override
   public Double sumCost(Set<Optional> optionals){

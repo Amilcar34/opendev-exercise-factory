@@ -26,6 +26,19 @@
 			<artifactId>vavr</artifactId>
 			<version>0.10.4</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.mockito/mockito-all -->
+		<dependency>
+    		<groupId>org.mockito</groupId>
+    		<artifactId>mockito-all</artifactId>
+    		<version>1.10.19</version>
+    		<scope>test</scope>
+		</dependency>
+
+		<dependency>
+    <groupId>io.vavr</groupId>
+    <artifactId>vavr-test</artifactId>
+    <version>0.10.4</version>
+</dependency>
 		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
@@ -40,28 +53,38 @@
 			<version>0.8.8</version>
 			<scope>test</scope>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.jacoco/jacoco-maven-plugin -->
+<dependency>
+    <groupId>org.jacoco</groupId>
+    <artifactId>jacoco-maven-plugin</artifactId>
+    <version>0.8.8</version>
+</dependency>
+<dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <version>5.8.2</version>
+      <scope>test</scope>
+    </dependency>
 	</dependencies>
 	<build>
 		<plugins>
-					<plugin>
-				<groupId>org.jacoco</groupId>
-				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.8.8</version>
-				<executions>
-					<execution>
-						<id>prepare-agent</id>
-						<goals>
-							<goal>prepare-agent</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>report</id>
-						<phase>prepare-package</phase>
-						<goals>
-							<goal>report</goal>
-						</goals>
-					</execution>
-					<execution>
+					<plugin><groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>prepare-agent</id>
+            <goals>
+              <goal>prepare-agent</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>report</id>
+            <phase>test</phase>
+            <goals>
+              <goal>report</goal>
+            </goals>
+          </execution>
+                   <execution>
 						<id>jacoco-check</id>
 						<goals>
 							<goal>check</goal>
@@ -72,20 +95,23 @@
 									<element>CLASS</element>
 									<excludes>
 										<exclude>*Test</exclude>
+										<exclude>*OpenDevApplication</exclude>
+										<exclude>**com.opendev.dto**</exclude>
+										<exclude>**com.opendev.contracts**</exclude>
+										<exclude>**com.opendev.entity**</exclude>
 									</excludes>
 									<limits>
 										<limit>
 											<counter>LINE</counter>
 											<value>COVEREDRATIO</value>
-											<minimum>50%</minimum>
+											<minimum>90%</minimum>
 										</limit>
 									</limits>
 								</rule>
 							</rules>
 						</configuration>
 					</execution>
-				</executions>
+               </executions>
 			</plugin>
-		</plugins>
-	</build>
+		</plugins>	</build>
 </project>

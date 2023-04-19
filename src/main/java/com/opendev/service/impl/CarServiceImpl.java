@@ -11,12 +11,9 @@ import com.opendev.entity.Car;
 import com.opendev.entity.Model;
 import com.opendev.entity.Optional;
 import com.opendev.repository.CarRepository;
-import com.opendev.repository.ModelRepository;
-import com.opendev.repository.OptionalRepository;
 import com.opendev.repository.impl.CarRepositoryImpl;
-import com.opendev.repository.impl.ModelRepositoryImpl;
-import com.opendev.repository.impl.OptionalRepositoryImpl;
 import com.opendev.service.CarService;
+import com.opendev.service.ModelService;
 import com.opendev.service.OptionalService;
 
 import io.vavr.control.Try;
@@ -24,9 +21,18 @@ import io.vavr.control.Try;
 public class CarServiceImpl implements CarService {
 
 	CarRepository carRepository = new CarRepositoryImpl();
-	ModelRepository modelRepository = new ModelRepositoryImpl();
 	OptionalService optionalService = new OptionalServiceImpl();
-	OptionalRepository optionalRepository = new OptionalRepositoryImpl();
+	ModelService modelService = new ModelServiceImpl();
+	
+	public CarServiceImpl(CarRepository carRepository, OptionalService optionalService, ModelService modelService) {
+		super();
+		this.carRepository = carRepository;
+		this.optionalService = optionalService;
+		this.modelService = modelService;
+	}
+
+	public CarServiceImpl() {
+	}
 
 	public Car create(int idModel, Set<Integer> idsOptionals) {
 
@@ -48,8 +54,8 @@ public class CarServiceImpl implements CarService {
 	public Double calculateCost(int idModel, Set<Integer> idsOptionals) {
 
 		if (idsOptionals == null || idsOptionals.isEmpty())
-			return modelRepository.getOne(idModel).getCost();
-		return calculateCost(modelRepository.getOne(idModel), optionalService.getByIds(idsOptionals));
+			return modelService.getOne(idModel).getCost();
+		return calculateCostt(modelService.getOne(idModel), optionalService.getByIds(idsOptionals));
 	}
 
 	public StatsCar stats() {
@@ -62,17 +68,17 @@ public class CarServiceImpl implements CarService {
 	}
 
 	private Car saveCar(Car entity, int idModel, Set<Integer> idsOptionals) {
-
-		var model = modelRepository.getOne(idModel);
+		var model = modelService.getOne(idModel);
 		entity.setModel(model);
 		Set<Optional> optionals;
 		optionals = idsOptionals == null || idsOptionals.isEmpty() ? new HashSet<Optional>() : optionalService.getByIds(idsOptionals);
 		entity.setOptionals(optionals);
-		entity.setPrice(calculateCost(model, optionals));
-		return carRepository.save(entity);
+		entity.setPrice(calculateCostt(entity.getModel(), entity.getOptionals()));
+		Car cardb= carRepository.save(entity);
+		return cardb;
 	}
 
-	private Double calculateCost(Model model, Set<Optional> optionals) {
+	private Double calculateCostt(Model model, Set<Optional> optionals) {
 
 		if (optionals == null || optionals.isEmpty())
 			return model.getCost();

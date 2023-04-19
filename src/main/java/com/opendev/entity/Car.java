@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -27,9 +28,11 @@ public class Car {
 		this.model = model;
 		this.optionals = optionals;
 		
-		Double optionalsCost = 0.0;
+		Double optionalsCost;
 		if (optionals == null || optionals.isEmpty())
-			optionals.stream().map(Optional::getCost).mapToDouble(Double::doubleValue).reduce(0, Double::sum);
+			optionalsCost = 0.0;
+		else 
+			optionalsCost = optionals.stream().map(Optional::getCost).mapToDouble(Double::doubleValue).reduce(0, Double::sum);
 		this.price = sum(optionalsCost, model.getCost());
 		
 	}

@@ -4,41 +4,58 @@
 
  - Asegurese de tener instalado Maven 3.6.3 o superior
  - Asegurese de tener instalado JAVA 11
- 
- ## Consignas generales
-   1) Generar una suite de Test-Automáticos con Junit y que la aplicación tenga un Code coverage de al menos el 90%
-   2) Sacar porciones de código que no se usen.
-   3) Agregar porciones de código que se necesita.
-   
-## Consigna
- Una fábrica de automóviles produce uno de sus modelos en tres variantes, llamadas sedán, coupé y familiar. Cada una tiene un precio de venta básico sin opcionales. 
-A su vez, a cada variante se le pueden agregar opciones como techo corredizo, aire acondicionado, sistema de frenos ABS, airbag y llantas de aleación. Cada uno de estos opcionales tiene un precio que se suma al básico. 
-En este caso, cada auto vendrá caracterizado por su variante y podrá tener ninguno, uno o más opcionales. Asumiendo los siguientes costos:
 
-Autosd
-• Básico sedán 230.000
-• Básico familiar 245.000
-• Básico coupé 270.000
-Opcionales:
-• Techo corredizo (TC) 12.000
-• Aire acondicionado (AA) 20.000
-• Sistemas de frenos ABS (ABS) 14.000
-• Airbag (AB) 7.000
-• Llantas de aleación (LL) 12.000
+## Descripción
+  Proyecto de OpenDev creado para evaluar el testing del usuario. Se implementa el uso de dos librerias para reducir el código y mejorarlo, ahorrar tiempo y aumentar la legibilidad.
 
-### Ejercicio 1
- Crear un programa con un método o función que permita calcular el costo final de un automóvil.
+## Criterios
 
-### Ejercicio 2
- Crear y desarrollar unos servicios en la misma que me permitan crear, modificar, eliminar y listar automóviles. Nota: Las operaciones de alta/consulta deberán almacenar/mostrar el costo del mismo.
+  <ol>
+  <li>Generar una suite de Test-Automáticos con Junit y que la aplicación tenga un Code coverage de al menos el 90%</li>
+  <li>Sacar porciones de código que no se usen.</li>
+  <li>Agregar porciones de código que se necesita.</li>
+  </ol>
 
-### Ejercicio 3
- Anexar una base de datos la cual guarde los automóviles creados con la API, con su costo final y adicionales correspondientes.
- 
-### Ejercicio 4
- Exponer un nuevo metodo “stats” que devuelva un Json con las estadísticas de la cantidad de automóviles y las distintas características:
- ![image](https://user-images.githubusercontent.com/86163213/227008041-0b7541d8-55d0-41c8-a1ef-4dfe0d63ee45.png)
- 
+## Consigna general
+  Disponible para su realización en ```documentos/CONSIGNA.docx```.
+
+
+## Cambios para su compilación
+  Para compilar el proyecto, es necesario agregar las bibliotecas pedidas más abajo. 
+  ### Lombok 
+  Con agregar sus dependencias en el ```pom.xml```, Lombok ya estaria listo para uso.
+  Sin embargo, depende del IDE que utilices se debe instalar un complemento:
+    Para saber que hacer en cada IDE, se recomienda ir a https://projectlombok.org/ y en el menu, click en ```install > IDE```, ahi seleccionar el que estés usando y leer los pasos para activarlo. Luego el IDE reconocerá las anotaciones de la librería. 
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.18.22</version>
+      <scope>provided</scope>
+    </dependency>
+  ### Vavr
+  Luego para Vavr, se debe pegar sus dependencias en ```pom.xml``` .
+
+  <!-- https://mvnrepository.com/artifact/io.vavr/vavr -->
+      <dependency>
+        <groupId>io.vavr</groupId>
+        <artifactId>vavr</artifactId>
+        <version>0.9.0</version>
+      </dependency>
+
+## Funciones
+### Método statsOptional
+  ```StatsOptional``` pertenece a la clase ```CarRepositoryImpl.java```. Dentro, se agrupan los autos por sus opcionales en un mapa; ```optionalGroupByCars```.
+  En ```optionalTotalSum``` la función Lambda asigna cada objeto Car al tamaño de su lista de opcionales. Después se reduce a un solo valor sumando los tamaños de todas las
+  listas opcionales iniciando por 0. Calcula el numero total de opcionales de Cars en el map sumando el tamaño de opcionales para cada objeto.
+  En el foreach, se calcula el porcentaje de opcionales para Car, se almacena y se calcula estadisticas sobre las funciones opcionales de cada Cars.
+
+### Método statsModel
+  Dentro de esta funcion, ```models``` obtiene una lista de modelos de coches únicos, toma cada valor del mapa (las claves son el id de cada coche y los valores son cada coche)
+  y extrae el modelo, por asi decirlo.
+  ```long count``` recupera el conjunto de entradas del mapa y asigna a cada auto su modelo. La condicion comprueba si el modelo actual es igual al modelo del otro objeto y por ultimo se cuentas cuantos cumplieron esa condición y se almacena.
+  ```percent ``` multiplica a ```count``` y divide el resultado por el numero total de elementos en ```dbCars```. Esta variable representa el porcentaje de autos que tiene atributo específico. 
+  En resumen, el método genera estadisticas para cada modelo de auto único, incluido el recuento y porcentaje de Cars que tienen ese modelo.
+
 ## Ejecutar
 
  - Desde una terminal con el directorio donde se encuentra la aplicaci&oacute;n ejecute:  
@@ -48,4 +65,3 @@ Opcionales:
 
 - Lombok
 - Vavr 
-
