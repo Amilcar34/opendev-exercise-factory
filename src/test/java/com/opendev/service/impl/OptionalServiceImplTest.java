@@ -27,13 +27,13 @@ public class OptionalServiceImplTest {
 	
 	@Test
 	public void vGetByIds() {
-		
 		OptionalService os = new OptionalServiceImpl();
 		
 		Optional optional = new Optional(1, "TC", "Techo corredizo", 12000.0);
 		Set<Integer> idsOptionals = Set.of(optional.getId());
+		Set<Optional> optionals = Set.of(optional);
 		
-		Assertions.assertEquals(optional, os.getByIds(idsOptionals));
+		Assertions.assertEquals(optionals, os.getByIds(idsOptionals));
 		
 	}
 

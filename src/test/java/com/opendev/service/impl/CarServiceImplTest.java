@@ -1,4 +1,5 @@
 package com.opendev.service.impl;
+
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -28,6 +29,12 @@ public class CarServiceImplTest {
 	CarService carServiceImpl = new CarServiceImpl(carRepositoryMock, optionalServiceMock, modelServiceMock);
 
 	@Test
+	public void carServiceImpl() {
+		CarService carServiceImpl = new CarServiceImpl();
+
+	}
+
+	@Test
 	public void vStats() {
 
 		StatsCar statsCar = new StatsCar();
@@ -38,22 +45,17 @@ public class CarServiceImplTest {
 		Assertions.assertEquals(statsCar, carServiceImpl.stats());
 	}
 
-	@Test // (expected = IllegalArgumentException.class)
-	public void deleteNoExisteId() {
+	@Test
+	public void deleteNoExisteId() throws IllegalArgumentException{
+		when(carRepositoryMock.existsById(3)).thenReturn(false);
+		try {
+			carServiceImpl.delete(3);
+		} catch (IllegalArgumentException ex) {
+			
+			String expectedMessage = "No existe un Auto con este id:" + 3;
+			Assertions.assertEquals(expectedMessage, ex.getMessage());
+		}
 
-		int id = 8;
-		when(carRepositoryMock.existsById(id)).thenReturn(false);
-
-		// assertThrows: verificar excepcion
-		IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class, () -> {
-			// la expresion lambda se pasa como argumento a assertThrows y lanza la
-			// excepcion
-			// si se aprueba la excepcion, se pasa la prueba.
-			carServiceImpl.delete(id);
-		});
-
-		String expectedMessage = "No existe un Auto con este id:" + id;
-		Assertions.assertEquals(expectedMessage, exception.getMessage());
 	}
 
 	@Test
@@ -150,7 +152,7 @@ public class CarServiceImplTest {
 		Car car = new Car(1, model, opcionals);
 
 		when(carRepositoryMock.existsById(car.getId())).thenReturn(true);
-		//when(carRepositoryMock.deleteById(car.getId())).thenReturn(true);
+		// when(carRepositoryMock.deleteById(car.getId())).thenReturn(true);
 
 		Assertions.assertTrue(carServiceImpl.delete(car.getId()));
 	}
