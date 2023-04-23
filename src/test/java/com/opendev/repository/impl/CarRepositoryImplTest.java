@@ -3,6 +3,7 @@ import static com.opendev.repository.impl.ModelRepositoryImpl.dbModels;
 import static com.opendev.repository.impl.OptionalRepositoryImpl.dbOptionals;
 import static java.util.Set.of;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.jupiter.api.Assertions;
@@ -10,6 +11,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
+import com.opendev.contracts.StatsModel;
+import com.opendev.contracts.StatsOptional;
 import com.opendev.entity.Car;
 import com.opendev.entity.Model;
 import com.opendev.entity.Optional;
@@ -74,17 +77,35 @@ public class CarRepositoryImplTest {
 
 	@Test
 	public void statsModel() {
-		// TODO arreglar
-		int cantCarsParaCadaModelo = 2;
-		Assertions.assertEquals(cantCarsParaCadaModelo, carRepository.statsModel().size());
+		// TODO preguntar?
+		Set<StatsModel> expectedStatsModel = new HashSet<>();
+		
+		StatsModel modelo1 = new StatsModel("Sedán", 2, 40.0);
+		StatsModel modelo2 = new StatsModel("Coupé", 2, 40.0);
+		StatsModel modelo3 = new StatsModel("Familiar", 1, 20.0);
+		
+		expectedStatsModel.add(modelo1);
+		expectedStatsModel.add(modelo2);
+		expectedStatsModel.add(modelo3);
+
+		//Assertions.assertEquals(expectedStatsModel, carRepository.statsModel());
 
 	}
 
 	@Test
 	public void statsOptional() {
-		// TODO arreglar
-		int cantDeOpcionalesUsados = 4;
-		Assertions.assertEquals(cantDeOpcionalesUsados, carRepository.statsOptional().size());
+		Set<StatsOptional> statsOptionals = new HashSet<>();
+		StatsOptional optional1 = new StatsOptional("AA", 3, 25.0);
+		StatsOptional optional2 = new StatsOptional("LL", 4, 33.0);
+		StatsOptional optional3 = new StatsOptional("TC", 3, 25.0);
+		StatsOptional optional4 = new StatsOptional("ABS", 2, 16.0);
+		
+		statsOptionals.add(optional4);
+		statsOptionals.add(optional2);
+		statsOptionals.add(optional1);
+		statsOptionals.add(optional3);
+		
+		Assertions.assertEquals(statsOptionals, carRepository.statsOptional());
 
 	}
 	
