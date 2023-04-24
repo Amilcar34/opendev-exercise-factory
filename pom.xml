@@ -67,6 +67,7 @@
     </dependency>
 	</dependencies>
 	<build>
+</project>>
 		<plugins>
 					<plugin><groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
@@ -114,8 +115,6 @@
                </executions>
 			</plugin>
 		</plugins>	</build>
-<<<<<<< HEAD
 </project>
-=======
 </project>
 >>>>>>> feature/mora
