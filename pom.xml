@@ -114,4 +114,8 @@
                </executions>
 			</plugin>
 		</plugins>	</build>
+<<<<<<< HEAD
 </project>
+=======
+</project>
+>>>>>>> feature/mora
