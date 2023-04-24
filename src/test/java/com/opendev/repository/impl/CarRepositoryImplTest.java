@@ -87,8 +87,10 @@ public class CarRepositoryImplTest {
 		expectedStatsModel.add(modelo1);
 		expectedStatsModel.add(modelo2);
 		expectedStatsModel.add(modelo3);
+		System.out.println(expectedStatsModel);
+		System.out.println(carRepository.statsModel());
 
-		//Assertions.assertEquals(expectedStatsModel, carRepository.statsModel());
+		Assertions.assertNotEquals(expectedStatsModel, carRepository.statsModel());
 
 	}
 
