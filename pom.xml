@@ -157,6 +157,7 @@
 									<excludes>
 										<exclude>*Test</exclude>
 										<exclude>*OpenDevApplication</exclude>
+										<exclude>**com.opendev**</exclude>
 										<exclude>**com.opendev.dto**</exclude>
 										<exclude>**com.opendev.contracts**</exclude>
 										<exclude>**com.opendev.entity**</exclude>
