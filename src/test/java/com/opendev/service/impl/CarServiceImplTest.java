@@ -46,15 +46,18 @@ public class CarServiceImplTest {
 	}
 
 	@Test
-	public void deleteNoExisteId() throws IllegalArgumentException{
-		when(carRepositoryMock.existsById(3)).thenReturn(false);
-		try {
-			carServiceImpl.delete(3);
-		} catch (IllegalArgumentException ex) {
-			
-			String expectedMessage = "No existe un Auto con este id:" + 3;
-			Assertions.assertEquals(expectedMessage, ex.getMessage());
-		}
+	public void deleteNoExisteId(){
+		Integer id = 3;
+		when(carRepositoryMock.existsById(id)).thenReturn(false);
+		
+		Exception exception = Assertions.assertThrows(IllegalArgumentException.class, () -> {
+			carServiceImpl.delete(id);
+	    });
+
+	    String expectedMessage = "No existe un Auto con este id:" + id;
+	    String actualMessage = exception.getMessage();
+
+	    Assertions.assertTrue(actualMessage.contains(expectedMessage));
 
 	}
 
