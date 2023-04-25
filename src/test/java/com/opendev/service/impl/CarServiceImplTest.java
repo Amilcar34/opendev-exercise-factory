@@ -29,12 +29,6 @@ public class CarServiceImplTest {
 	CarService carServiceImpl = new CarServiceImpl(carRepositoryMock, optionalServiceMock, modelServiceMock);
 
 	@Test
-	public void carServiceImpl() {
-		CarService carServiceImpl = new CarServiceImpl();
-
-	}
-
-	@Test
 	public void vStats() {
 
 		StatsCar statsCar = new StatsCar();
