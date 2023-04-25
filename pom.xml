@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.opendev</groupId>
@@ -75,43 +76,17 @@
 				<version>3.0.0-M6</version>
 			</plugin>
 			<plugin>
-				<groupId>org.pitest</groupId>
-				<artifactId>pitest-maven</artifactId>
-				<version>1.7.6</version>
-				<configuration>
-					<verbose>true</verbose>
-					<mutationEngine>descartes</mutationEngine>
-					<targetClasses>
-						<param>com.opendev.*</param>
-					</targetClasses>
-					<targetTests>
-						<param>com.opendev.*</param>
-					</targetTests>
-				</configuration>
-				<executions>
-					<execution>
-						<phase>test</phase>
-						<goals>
-							<goal>mutationCoverage</goal>
-						</goals>
-					</execution>
-				</executions>
-				<dependencies>
-					<dependency>
-						<groupId>org.pitest</groupId>
-						<artifactId>pitest-junit5-plugin</artifactId>
-						<version>0.16</version>
-					</dependency>
-					<dependency>
-						<groupId>eu.stamp-project</groupId>
-						<artifactId>descartes</artifactId>
-						<version>1.3.2</version>
-					</dependency>
-				</dependencies>
-			</plugin>
-			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.9</version>
+				<configuration>
+					<excludes>
+						<exclude>**/*com/opendev/OpenDevApplication.class</exclude>
+						<exclude>com/opendev/dto/**/*</exclude>
+						<exclude>com/opendev/entity/**/*</exclude>
+						<exclude>com/opendev/contracts/**/*</exclude>
+					</excludes>
+				</configuration>
 				<executions>
 					<execution>
 						<id>prepare-agent</id>
@@ -134,20 +109,12 @@
 						<configuration>
 							<rules>
 								<rule>
-									<element>CLASS</element>
-									<excludes>
-										<exclude>*Test</exclude>
-										<exclude>*OpenDevApplication</exclude>
-										<exclude>**com.opendev**</exclude>
-										<exclude>**com.opendev.dto**</exclude>
-										<exclude>**com.opendev.contracts**</exclude>
-										<exclude>**com.opendev.entity**</exclude>
-									</excludes>
+									<element>PACKAGE</element>
 									<limits>
 										<limit>
-											<counter>LINE</counter>
+											<counter>COMPLEXITY</counter>
 											<value>COVEREDRATIO</value>
-											<minimum>50%</minimum>
+											<minimum>90%</minimum>
 										</limit>
 									</limits>
 								</rule>
@@ -155,6 +122,41 @@
 						</configuration>
 					</execution>
 				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.pitest</groupId>
+				<artifactId>pitest-maven</artifactId>
+				<version>1.7.6</version>
+				<configuration>
+					<verbose>true</verbose>
+					<mutationEngine>descartes</mutationEngine>
+					<targetClasses>
+						<param>com.opendev.*</param>
+					</targetClasses>
+					<targetTests>
+						<param>com.opendev.*</param>
+					</targetTests>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>verify</phase>
+						<goals>
+							<goal>mutationCoverage</goal>
+						</goals>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>org.pitest</groupId>
+						<artifactId>pitest-junit5-plugin</artifactId>
+						<version>0.16</version>
+					</dependency>
+					<dependency>
+						<groupId>eu.stamp-project</groupId>
+						<artifactId>descartes</artifactId>
+						<version>1.3.2</version>
+					</dependency>
+				</dependencies>
 			</plugin>
 		</plugins>
 	</build>
