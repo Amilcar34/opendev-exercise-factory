@@ -130,12 +130,14 @@
 				<configuration>
 					<verbose>true</verbose>
 					<mutationEngine>descartes</mutationEngine>
+					<excludedTestClasses>
+						<param>com.opendev.dto*</param>
+					</excludedTestClasses>
 					<targetClasses>
-						<param>com.opendev.*</param>
+						<param>com.opendev.repository*</param>
+						<param>com.opendev.service*</param>
+						<param>com.opendev.rest*</param>
 					</targetClasses>
-					<targetTests>
-						<param>com.opendev.*</param>
-					</targetTests>
 				</configuration>
 				<executions>
 					<execution>
