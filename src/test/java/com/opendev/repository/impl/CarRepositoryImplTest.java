@@ -27,6 +27,7 @@ public class CarRepositoryImplTest {
 	@Test
 	public void vGetOne() {
 
+		// set up
 		Model model = new Model(1, "Sedán", 230000.0);
 		Optional optional1 = new Optional(4, "AB", "Airbag", 7000.0);
 		Optional optional2 = new Optional(2, "AA", "Aire acondicionado", 20000.0);
@@ -34,13 +35,17 @@ public class CarRepositoryImplTest {
 
 		Car car = new Car(1, model, optionals);
 
-		Assertions.assertEquals(car, carRepository.getOne(1));
+		// exercise
+		Car resultado = carRepository.getOne(1);
+		// verify
+		Assertions.assertEquals(car, resultado);
 	}
 
 	@Test
 	@Disabled
 	public void vSave() {
 
+		// set up
 		Model modelo = new Model(3, "Coupé", 270000.0);
 		Optional opcional1 = new Optional(1, "TC", "Techo corredizo", 12000.0);
 		Optional opcional2 = new Optional(2, "AA", "Aire acondicionado", 20000.0);
@@ -51,10 +56,12 @@ public class CarRepositoryImplTest {
 
 		Car auto = new Car(null, modelo, opcionales);
 
+		// exercise
 		Car autoObtenido = carRepository.save(auto);
 
 		Car autoEsperado = new Car(6, modelo, opcionales);
 
+		// verify
 		Assertions.assertEquals(autoEsperado, autoObtenido);
 
 	}
